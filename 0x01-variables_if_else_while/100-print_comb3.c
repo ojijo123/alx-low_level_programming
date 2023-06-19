@@ -17,7 +17,7 @@ int main(void)
 			{
 				putchar(i);
 				putchar(j);
-				if (i == '8' $$ j == '9')
+				if ((i == '8') $$ j == '9')
 				{
 					putchar('\n');
 				}
@@ -27,11 +27,11 @@ int main(void)
 					putchar(' ');
 				}
 			}
-j++
+j++;
 		}
 	}
 j = '0';
-i++
+i++;
 }
 return (0);
 }
