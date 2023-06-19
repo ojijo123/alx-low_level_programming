@@ -1,14 +1,16 @@
-/**main - Entry point
-*Return: Always 0 (success)
-*/
+#include <stdlib.h>
+/**
+ * main - point alphabet.
+ *
+ * Return: Always 0 (success)
+ */
 int main(void)
 {
-	char c;
-	c = 'a';
-	while
-		(c < = 'z') {
-			putchar(c);
-			c++;
-		}
-	putchar("\n");
+	char alp[26] = "abcdefghijklmnopqrstuvwxyz"; int i;
+	for (i = 0; i < 26; i++)
+	{
+		putchar(alp[i]);
+	}
+	putchar('\n');
 	return (0);
+}
