@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "main.h"
+
 /**
  * main - Entry point
  *
@@ -23,4 +24,5 @@ int main(void)
 			printf(" ");
 	}
 	printf("\n");
+	return (0);
 }
