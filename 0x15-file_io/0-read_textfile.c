@@ -1,40 +1,46 @@
-#include "main.h"
-#include <unstd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
-/**
- * read_textfile-function that reads a text file and
- * prints it to the POSIX standard output
- *
- * @filename: filename (pointer to an array)
- * @letters: letters to be printed
- * Return: number of letters printed
- */
-ssize_t read_textfile(const char *filename, size_t letters);
-{
-	int fd;
-	ssize_t nrd, nwr;
-	char *buff;
 
-	if (filename == NULL)
+/**
+ * read_textfile - prints text from a file
+ *
+ * @filename: the filename
+ * @letters: number of letterss to read
+ *
+ * Return: number of letters read, 0 if end of file
+ */
+ssize_t read_textfile(const char *filename, size_t letters)
+{
+	int file;
+	int length, wrotechars;
+	char *buf;
+
+	if (filename == NULL || letters == 0)
 		return (0);
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
+	buf = malloc(sizeof(char) * (letters));
+	if (buf == NULL)
 		return (0);
-	buff = malloc(sizeof(char) * letters);
-	if (buff == NULL)
+
+	file = open(filename, O_RDONLY);
+	if (file == -1)
 	{
-		close(fd);
+		free(buf);
 		return (0);
 	}
-	nrd = read(fd, buff, letters);
-	nwr = write(STDOUT_FILENO, nrd, buff);
+	length = read(file, buf, letters);
+	if (length == -1)
+	{
+		free(buf);
+		close(file);
+		return (0);
+	}
 
-	close(fd);
-	if (nrd == -1)
-	free(buff);
-	return (0);
-	return (nwr);
+	wrotechars = write(STDOUT_FILENO, buf, length);
+
+	free(buf);
+	close(file);
+	if (wrotechars != length)
+		return (0);
+	return (length);
 }
